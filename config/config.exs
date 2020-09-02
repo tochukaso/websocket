@@ -7,9 +7,6 @@
 # General application configuration
 use Mix.Config
 
-config :websocket,
-  ecto_repos: [Websocket.Repo]
-
 # Configures the endpoint
 config :websocket, WebsocketWeb.Endpoint,
   url: [host: "localhost"],
