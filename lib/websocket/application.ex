@@ -11,6 +11,7 @@ defmodule Websocket.Application do
       WebsocketWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: Websocket.PubSub},
+      WebsocketWeb.Presence,
       # Start the Endpoint (http/https)
       WebsocketWeb.Endpoint
       # Start a worker by calling: Websocket.Worker.start_link(arg)

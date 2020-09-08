@@ -55,6 +55,7 @@ defmodule WebsocketWeb do
     quote do
       use Phoenix.Channel
       import WebsocketWeb.Gettext
+      require Logger
     end
   end
 

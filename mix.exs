@@ -33,15 +33,28 @@ defmodule Websocket.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:configparser_ex, "~> 4.0.0"},
+      {:cors_plug, "~> 2.0.2"},
+      {:credo, "~> 1.4.0", only: [:dev], runtime: false},
+      {:ex_aws, "~> 2.1.4", override: true},
+      {:ex_aws_dynamo, "~> 3.0.3"},
+      {:ex_aws_sqs, "~> 3.2.1"},
+      {:jason, "~> 1.0"},
+      {:hackney, "~> 1.16.0"},
+      {:httpoison, "~> 1.7.0"},
+      {:gettext, "~> 0.11"},
+      {:open_api_spex, "~> 3.7.0"},
       {:phoenix, "~> 1.5.4"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.2"},
+      {:plug_cowboy, "~> 2.0"},
+      {:poison, "~> 4.0.1", override: true},
+      {:saxy, "~> 1.2.0"},
+      {:sweet_xml, "~> 0.6.6"},
+      {:timex, "~> 3.6.2"},
       {:telemetry_metrics, "~> 0.4"},
-      {:telemetry_poller, "~> 0.4"},
-      {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:telemetry_poller, "~> 0.4"}
     ]
   end
 
@@ -53,7 +66,7 @@ defmodule Websocket.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "cmd npm install --prefix assets"],
+      setup: ["deps.get", "cmd npm install --prefix assets"]
     ]
   end
 end

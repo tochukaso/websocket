@@ -51,7 +51,7 @@ config :websocket, WebsocketWeb.Endpoint,
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/websocket_web/(live|views)/.*(ex)$",
+      ~r"lib/websocket_web/*/.*(ex)$",
       ~r"lib/websocket_web/templates/.*(eex)$"
     ]
   ]

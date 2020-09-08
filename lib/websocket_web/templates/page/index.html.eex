@@ -1,6 +1,18 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-</section>
-<ul id="messages"></ul>
-<input id="chat-input" type="text">
+<div id="login-room">
+  <h2>ようこそ! チャットルームへ</h2>
+  ユーザー名:<input id="user_name" type="text"><br>
+  グループID:<input id="group_id" type="text"><br>
+  ユーザー名・グループIDを入力して下さい<br>
+  <input type="button" id="login-button" value="ログイン" />
+</div>
+
+
+<div id="chat-room" style="display:none;">
+<div id="login-group"></div>
+<h3>現在のログインユーザー</h3>
+<div id="user-list">
+</div>
+<h3>メッセージ</h3>
+  <ul id="messages"></ul>
+  <input id="chat-input" type="text">
+</div>

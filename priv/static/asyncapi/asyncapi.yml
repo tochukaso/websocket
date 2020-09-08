@@ -1,0 +1,41 @@
+asyncapi: '2.0.0'
+info:
+  title: Example
+  version: 0.0.1
+
+servers:
+  production:
+    url: y-omori.net 
+    protocol: wss
+    description: This is WebSocket Example
+
+channels:
+  /socket:
+    bindings:
+      ws:
+    subscribe:
+      operationId: room:lobby
+      message:
+        description: chat room messages
+        $ref: '#/components/messages/chat_room'
+    publish:
+      operationId: new_msg
+      message:
+        $ref: '#/components/messages/chat_room'
+
+components:
+  messages:
+    chat_room:
+      payload:
+        type: object
+        properties:
+          body:
+            type: string
+            example: "ようこそ"
+          writer:
+            type: string
+            example: "田中"
+          time:
+            type: string
+            format: time
+            example: 11:55:44
