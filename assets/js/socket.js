@@ -11,10 +11,11 @@ import { Socket, Presence } from "phoenix"
 const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
 var uuid = require("uuid");
-var id = uuid.v4();
+//var id = uuid.v4();
+var id = "Bearer eyJraWQiOiJRS1wvV0NLRUdkXC9jVmRQcWVmRUg1N0RCVEQ1RGo0V1NDbVV3OFdyZ1EzTEk9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJkMDAxM2JmNC0wODFhLTQ1MDAtYTgzYS1jNTA2MjFmMjMwNzciLCJhdWQiOiIxZGtlZmlwNGhjZGNsaWp0dXFxZWcyYWtnIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImV2ZW50X2lkIjoiZTFjNzUxMTgtYTY5Ni00OTJhLTk4MTYtMzExM2JjY2IyNGJjIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE1OTk2Mjc0NjcsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5hcC1ub3J0aGVhc3QtMS5hbWF6b25hd3MuY29tXC9hcC1ub3J0aGVhc3QtMV9XZ29scTVoSXEiLCJuaWNrbmFtZSI6Inlhc3VtaXRzdW9vbW9yaStAZ21haWwuY29tIiwiY29nbml0bzp1c2VybmFtZSI6Inlhc3VtaXRzdW9vbW9yaStAZ21haWwuY29tIiwiZXhwIjoxNTk5NjMxMDY3LCJpYXQiOjE1OTk2Mjc0NjcsImVtYWlsIjoieWFzdW1pdHN1b29tb3JpK0BnbWFpbC5jb20ifQ.k-KW4brnBSkgLyoIqBPnabbf6AAEd5EztI5IMTtvc0GY8lMWaecJwzc6N5lr95SpRow39EkEctMryQTV4cuXvvjxNL20GkJiAWNyo3cq-XExPiCQyUGHw9BfHloO49UvglXl7egoOG2PNZosb8ezYpd3sxR96CP2cDEFHI8Id0mvN3MS2G9NAbzT8rdSl8OOyMRjvq48fBhcc-DJh2zCZg4O07jNCa-B3uiaIxW9TpZL5i_mbzK-mofaga2MavC4-jmu_BEcgDAbk1e-h_UfmzlkzIcZMTHh4N1otavPGkTV4PU7sp753uP9y0lbbT-yI0FdrwaPBnc1ID0MFGLN7w";
 let socket = new Socket("/socket", { params: { token: id } })
 
-let presences = [];
+let presences = {};
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
 // which authenticates the session and assigns a `:current_user`.
@@ -106,16 +107,28 @@ document.getElementById('login-button').onclick = function c() {
       parent.removeChild(parent.firstChild);
     }
   }
+channel.on("presence_state", state => {
+  presences = Presence.syncState(presences, state)
+  renderOnlineUsers(presences)
+})
 
+channel.on("presence_diff", diff => {
+  presences = Presence.syncDiff(presences, diff)
+  renderOnlineUsers(presences)
+})
+/** 
   channel.on('presence_diff', (response) => {
+    console.log("presences_diff: response");
+    console.log(response);
+    console.log("presences_diff: presences")
+    console.log(presences);
     presences = Presence.syncDiff(presences, response);
     console.log("presences_diff");
     console.log(presences);
     Presence.list(presences).forEach(p => {
-    console.log("p");
-      console.log(p.metas);
       if(p.metas !== undefined) {
         const messageItem = document.createElement('li');
+        console.log(p.metas[0].user_name);
         messageItem.innerText = `${p.metas[0].user_name}`;
         userList.appendChild(messageItem);
       }
@@ -126,17 +139,32 @@ document.getElementById('login-button').onclick = function c() {
     console.log("presences_state");
     removeAllChildNodes(userList);
     Presence.list(response).forEach(p => {
-      console.log("p");
-      console.log(p.metas);
       if (p.metas !== undefined) {
         const messageItem = document.createElement('li');
+        console.log(p.metas[0].user_name);
         messageItem.innerText = `${p.metas[0].user_name}`;
         userList.appendChild(messageItem);
       }
     });
   })
+**/
+
 };
 
-// for chat
+const renderOnlineUsers = function(presences) {
+  let onlineUsers = Presence.list(presences, (_id, {metas: [user, ...rest]}) => {
+    return onlineUserTemplate(user);
+  }).join("")
+
+  document.querySelector("#online-users").innerHTML = onlineUsers;
+}
+
+const onlineUserTemplate = function(user) {
+  return `
+    <div id="online-user-${user.user_id}">
+      <strong class="text-secondary">${user.user_name}</strong>
+    </div>
+  `
+}
 
 export default socket
