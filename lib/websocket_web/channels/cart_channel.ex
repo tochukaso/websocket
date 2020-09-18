@@ -45,7 +45,8 @@ defmodule WebsocketWeb.CartChannel do
     %{
       "user_id" => socket.assigns["user_id"],
       "user_name" => "username",
-      "goods_id" => socket.assigns["goods_id"]
+      "goods_id" => socket.assigns["goods_id"],
+      "count" => socket.assigns["count"]
     }
   end
 
