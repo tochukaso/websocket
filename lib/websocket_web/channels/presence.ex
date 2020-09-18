@@ -10,12 +10,12 @@ defmodule WebsocketWeb.Presence do
     pubsub_server: Websocket.PubSub
 
   def track_user_join(socket, user) do
-    IO.inspect(user, label: "track_user_join")
-
     track(socket, user["user_id"], %{
       typing: false,
       user_name: user["user_name"],
-      group_id: user["group_id"]
+      group_id: user["group_id"],
+      goods_id: user["goods_id"],
+      count: user["count"]
     })
   end
 end

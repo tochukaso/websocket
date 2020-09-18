@@ -53,6 +53,7 @@ defmodule Websocket.MixProject do
       {:saxy, "~> 1.2.0"},
       {:sweet_xml, "~> 0.6.6"},
       {:timex, "~> 3.6.2"},
+      {:uuid, "~> 1.1.8"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"}
     ]

@@ -3,6 +3,7 @@ defmodule WebsocketWeb.UserSocket do
 
   ## Channels
   channel("room:*", WebsocketWeb.RoomChannel)
+  channel("cart:*", WebsocketWeb.CartChannel)
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
@@ -20,6 +21,10 @@ defmodule WebsocketWeb.UserSocket do
     {:ok, assign(socket, "user_id", token)}
   end
 
+  def connect(_map, socket, _connect_info) do
+    token = UUID.uuid4(:hex)
+    {:ok, assign(socket, "user_id", token)}
+  end
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #
   #     def id(socket), do: "user_socket:#{socket.assigns.user_id}"
