@@ -5,12 +5,20 @@ defmodule Websocket.MixProject do
     [
       app: :websocket,
       version: "0.1.0",
-      elixir: "~> 1.7",
+      elixir: "~> 1.10",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      default_release: :websocket,
+      releases: [
+        websocket: [
+          include_executables_for: [:unix],
+          applications: [runtime_tools: :permanent],
+          steps: [:assemble, :tar]
+        ]
+      ]
     ]
   end
 
