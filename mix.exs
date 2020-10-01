@@ -17,7 +17,7 @@ defmodule Websocket.MixProject do
           include_executables_for: [:unix],
           applications: [runtime_tools: :permanent],
           steps: [:assemble, :tar],
-          cookie: websocket
+          cookie: "websocket"
         ]
       ]
     ]
