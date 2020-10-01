@@ -4,6 +4,7 @@ defmodule Websocket.Application do
   @moduledoc false
 
   use Application
+  @notification :notification
 
   def start(_type, _args) do
     children = [
@@ -17,6 +18,10 @@ defmodule Websocket.Application do
       # Start a worker by calling: Websocket.Worker.start_link(arg)
       # {Websocket.Worker, arg}
     ]
+
+    :mnesia.create_table(@notification,
+      attributes: [:user_id, :notification_time]
+    )
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

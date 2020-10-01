@@ -4,6 +4,7 @@ defmodule WebsocketWeb.RoomChannel do
   alias Websocket.AWS.Sqs
   alias WebsocketWeb.Presence
   require Logger
+  @notification :notification
 
   def join("room:lobby" <> group_id, _message, socket) do
     IO.inspect(group_id, label: "group_id")
@@ -40,6 +41,12 @@ defmodule WebsocketWeb.RoomChannel do
       date: time()
     }
 
+    :mnesia.dirty_write({@notification, socket.assigns["user_name"], time()})
+
+    result =
+      :mnesia.dirty_read(@notification, socket.assigns["user_name"])
+      |> get_notification_time_from_result()
+    Logger.info("notification_time: #{result}")
     # Sqs.add_message(
     #  response,
     #  socket.assigns["group_id"]
@@ -56,6 +63,16 @@ defmodule WebsocketWeb.RoomChannel do
       {:error, %{reason: "unexpected error was occurred"}}
   after
     Logger.info("Finished new message.")
+  end
+
+  defp get_notification_time_from_result(result) when result == [] do
+    nil
+  end
+
+  defp get_notification_time_from_result(result) do
+    result
+    |> hd()
+    |> elem(2)
   end
 
   def handle_in("login", body, socket) do
