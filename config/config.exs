@@ -13,6 +13,7 @@ config :websocket, WebsocketWeb.Endpoint,
   secret_key_base: "zu0A/5vsoi2YqQYrBgRGmEVyyZFYhp29iz0FwWQEM/9SNABIwWlQ2Y8RjScafN3f",
   render_errors: [view: WebsocketWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Websocket.PubSub,
+  server: true,
   live_view: [signing_salt: "Sy665Hp8"],
   sqs_queuer_url: "https://sqs.ap-northeast-1.amazonaws.com/747030685203/websocket-sqs.fifo"
 
