@@ -7,6 +7,7 @@ defmodule Websocket.Application do
   @notification :notification
 
   def start(_type, _args) do
+    prepare_mnesia()
     children = [
       {Cluster.Supervisor,
        [Application.get_env(:libcluster, :topologies), [name: Websocket.ClusterSupervisor]]},
@@ -25,7 +26,6 @@ defmodule Websocket.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Websocket.Supervisor]
     Supervisor.start_link(children, opts)
-    prepare_mnesia()
   end
 
   # Tell Phoenix to update the endpoint configuration
