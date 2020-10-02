@@ -45,6 +45,7 @@ defmodule Websocket.MixProject do
       {:configparser_ex, "~> 4.0.0"},
       {:cors_plug, "~> 2.0.2"},
       {:credo, "~> 1.4.0", only: [:dev], runtime: false},
+      {:distillery, ">= 2.1.1"},
       {:ecto, "~> 2.1.6"},
       {:ecto_mnesia, "~> 0.9.1"},
       {:ex_aws, "~> 2.1.4", override: true},
