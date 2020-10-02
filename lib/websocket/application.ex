@@ -9,7 +9,12 @@ defmodule Websocket.Application do
   def start(_type, _args) do
     #prepare_mnesia()
     topology = Application.get_env(:libcluster, :topologies)
-    hosts = topology[:myapp][:config][:hosts]
+
+    IO.inspect(topology, label: "topology")
+
+    hosts = topology[:websocket][:config][:hosts]
+
+    IO.inspect(hosts, label: "hosts")
     children = [
       {Cluster.Supervisor,
        [topology, [name: Websocket.ClusterSupervisor]]},
