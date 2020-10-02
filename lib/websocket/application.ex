@@ -46,6 +46,7 @@ defmodule Websocket.Application do
 
   defp prepare_mnesia do
     master_node = System.get_env("MASTER_NODE")
+    IO.inspect(master_node, label:"master_node")
 
     if master_node == nil do
       Websocket.Mnesia.init_master()
