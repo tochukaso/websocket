@@ -7,6 +7,7 @@ defmodule Websocket.Application do
   @notification :notification
 
   def start(_type, _args) do
+    prepare_mnesia()
     children = [
       # Start the Telemetry supervisor
       WebsocketWeb.Telemetry,
@@ -18,13 +19,6 @@ defmodule Websocket.Application do
       # Start a worker by calling: Websocket.Worker.start_link(arg)
       # {Websocket.Worker, arg}
     ]
-    IO.inspect([node()], label: "nodes")
-
-    :mnesia.create_schema([node()])
-    :mnesia.start()
-    :mnesia.create_table(@notification,
-      attributes: [:user_id, :notification_time]
-    )
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
@@ -38,4 +32,19 @@ defmodule Websocket.Application do
     WebsocketWeb.Endpoint.config_change(changed, removed)
     :ok
   end
+
+  defp prepare_mnesia do
+
+  master_node = System.get_env("MASTER_NODE")
+
+  if master_node == nil do
+    Websocket.Mnesia.init_master()
+  else
+    String.to_atom(master_node)
+    |> Websocket.Mnesia.add_self_to_cluster
+  end
+
+  end
+
+
 end
