@@ -1,12 +1,12 @@
 defmodule Websocket.Store do
   @moduledoc """
-  Provides the structure of ExampleStore records for a minimal example of Mnesiac.
+  Provides the structure of ExampleStore records for a minimal notification of Mnesiac.
   """
   use Mnesiac.Store
   import Record, only: [defrecord: 3]
 
   @doc """
-  Record definition for ExampleStore example record.
+  Record definition for ExampleStore notification record.
   """
   Record.defrecord(
     :notification,
@@ -17,7 +17,7 @@ defmodule Websocket.Store do
   )
 
   @typedoc """
-  ExampleStore example record field type definitions.
+  ExampleStore notification record field type definitions.
   """
   @type notification ::
           record(
@@ -31,7 +31,7 @@ defmodule Websocket.Store do
   def store_options,
     do: [
       record_name: __MODULE__,
-      attributes: example() |> example() |> Keyword.keys(),
+      attributes: notification() |> notification() |> Keyword.keys(),
       index: [:topic_id],
       ram_copies: [node()]
     ]
