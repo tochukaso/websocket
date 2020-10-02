@@ -12,6 +12,7 @@ defmodule Websocket.Mnesia do
 
     :mnesia.create_schema([node()])
     :mnesia.start()
+
     :mnesia.create_table(@notification,
       attributes: [:user_id, :notification_time]
     )

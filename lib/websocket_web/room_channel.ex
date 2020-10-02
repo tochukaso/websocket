@@ -46,6 +46,7 @@ defmodule WebsocketWeb.RoomChannel do
     result =
       :mnesia.dirty_read(@notification, socket.assigns["user_name"])
       |> get_notification_time_from_result()
+
     Logger.info("notification_time: #{result}")
     # Sqs.add_message(
     #  response,

@@ -74,7 +74,12 @@ config :libcluster,
       # The selected clustering strategy. Required.
       strategy: Cluster.Strategy.Epmd,
       # Configuration for the provided strategy. Optional.
-      config: [hosts: [:"websocket@ip-172-31-36-104.ap-northeast-1.compute.internal", :"websocket@ip-172-31-0-154.ap-northeast-1.compute.internal"]],
+      config: [
+        hosts: [
+          :"websocket@ip-172-31-36-104.ap-northeast-1.compute.internal",
+          :"websocket@ip-172-31-0-154.ap-northeast-1.compute.internal"
+        ]
+      ],
       # The function to use for connecting nodes. The node
       # name will be appended to the argument list. Optional
       connect: {:net_kernel, :connect_node, []},
@@ -83,6 +88,6 @@ config :libcluster,
       disconnect: {:erlang, :disconnect_node, []},
       # The function to use for listing nodes.
       # This function must return a list of node names. Optional
-      list_nodes: {:erlang, :nodes, [:connected]},
+      list_nodes: {:erlang, :nodes, [:connected]}
     ]
   ]

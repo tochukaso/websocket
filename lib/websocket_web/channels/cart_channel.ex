@@ -26,7 +26,6 @@ defmodule WebsocketWeb.CartChannel do
     push(socket, "presence_state", Presence.list(socket))
     {:noreply, socket}
   rescue
-
     error ->
       error
       |> inspect()
@@ -60,5 +59,4 @@ defmodule WebsocketWeb.CartChannel do
     |> assign("goods_id", goods_id)
     |> assign("count", count)
   end
-
 end
