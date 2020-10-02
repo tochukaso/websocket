@@ -13,7 +13,7 @@ defmodule Websocket.Application do
     children = [
       {Cluster.Supervisor,
        [topology, [name: Websocket.ClusterSupervisor]]},
-       {Mnesiac.Supervisor, [hosts, [name: Websocket.MnesiacSupervisor]]}
+       {Mnesiac.Supervisor, [hosts, [name: Websocket.MnesiacSupervisor]]},
       # Start the Telemetry supervisor
       WebsocketWeb.Telemetry,
       # Start the PubSub system
