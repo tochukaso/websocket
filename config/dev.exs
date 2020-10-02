@@ -67,3 +67,7 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :websocket, node_name: :aws
+
+config :kernel,
+  sync_nodes_optional: [:"awsa@ip-172-31-36-104.ap-northeast-1.compute.internal", :"awsb@ip-172-31-0-154.ap-northeast-1.compute.internal"],
+  sync_node_timeout: 30_000
