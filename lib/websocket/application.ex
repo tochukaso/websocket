@@ -18,7 +18,7 @@ defmodule Websocket.Application do
       # Start a worker by calling: Websocket.Worker.start_link(arg)
       # {Websocket.Worker, arg}
     ]
-    IO.inspect([node[]], label: "nodes")
+    IO.inspect([node()], label: "nodes")
 
     :mnesia.create_schema([node()])
     :mnesia.start()
