@@ -29,8 +29,7 @@ defmodule Websocket.MixProject do
   def application do
     [
       mod: {Websocket.Application, []},
-      extra_applications: [:logger, :runtime_tools],
-      included_applications: [:mnesia]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
