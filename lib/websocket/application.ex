@@ -9,6 +9,7 @@ defmodule Websocket.Application do
   def start(_type, _args) do
     prepare_mnesia()
     children = [
+      {Cluster.Supervisor, [Application.get_env(:libcluster, :topologies), [name: Websocket.ClusterSupervisor]]}
       # Start the Telemetry supervisor
       WebsocketWeb.Telemetry,
       # Start the PubSub system

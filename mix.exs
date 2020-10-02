@@ -53,6 +53,7 @@ defmodule Websocket.MixProject do
       {:hackney, "~> 1.16.0"},
       {:httpoison, "~> 1.7.0"},
       {:gettext, "~> 0.11"},
+      {:libcluster, "~> 3.2.1"},
       {:open_api_spex, "~> 3.7.0"},
       {:phoenix, "~> 1.5.4"},
       {:phoenix_html, "~> 2.11"},

@@ -67,3 +67,22 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :websocket, node_name: :aws
+
+config :libcluster,
+  topologies: [
+    websocket: [
+      # The selected clustering strategy. Required.
+      strategy: Cluster.Strategy.Epmd,
+      # Configuration for the provided strategy. Optional.
+      config: [hosts: [:"awsa@ip-172-31-36-104.ap-northeast-1.compute.internal", :"awsb@ip-172-31-0-154.ap-northeast-1.compute.internal"]],
+      # The function to use for connecting nodes. The node
+      # name will be appended to the argument list. Optional
+      connect: {:net_kernel, :connect_node, []},
+      # The function to use for disconnecting nodes. The node
+      # name will be appended to the argument list. Optional
+      disconnect: {:erlang, :disconnect_node, []},
+      # The function to use for listing nodes.
+      # This function must return a list of node names. Optional
+      list_nodes: {:erlang, :nodes, [:connected]},
+    ]
+  ]
