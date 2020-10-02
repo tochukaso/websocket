@@ -25,7 +25,7 @@ defmodule Websocket.Mnesia do
       attributes: [:user_id, :notification_time, disc_copies: node_list]
     )
 
-    Mnesia.wait_for_tables([@notification], 5_000)
+    Mnesia.wait_for_tables([@notification], 30_000)
   end
 
   def add_self_to_cluster(master_node) do
@@ -37,7 +37,7 @@ defmodule Websocket.Mnesia do
 
     Mnesia.add_table_copy(@notification, node(), :disc_copies)
 
-    Mnesia.wait_for_tables([@notification], 5_000)
+    Mnesia.wait_for_tables([@notification], 30_000)
   end
 
   def add_child_to_cluster(child_node) do
