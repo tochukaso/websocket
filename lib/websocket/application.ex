@@ -7,7 +7,7 @@ defmodule Websocket.Application do
   @notification :notification
 
   def start(_type, _args) do
-    #prepare_mnesia()
+    prepare_mnesia()
     topology = Application.get_env(:libcluster, :topologies)
 
     IO.inspect(topology, label: "topology")
@@ -18,7 +18,7 @@ defmodule Websocket.Application do
     children = [
       {Cluster.Supervisor,
        [topology, [name: Websocket.ClusterSupervisor]]},
-       {Mnesiac.Supervisor, [hosts, [name: Websocket.MnesiacSupervisor]]},
+      # {Mnesiac.Supervisor, [hosts, [name: Websocket.MnesiacSupervisor]]},
       # Start the Telemetry supervisor
       WebsocketWeb.Telemetry,
       # Start the PubSub system
@@ -35,7 +35,6 @@ defmodule Websocket.Application do
     opts = [strategy: :one_for_one, name: Websocket.Supervisor]
     Supervisor.start_link(children, opts)
 
-    prepare_mnesia()
   end
 
   # Tell Phoenix to update the endpoint configuration
