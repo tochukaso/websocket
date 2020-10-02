@@ -32,7 +32,7 @@ defmodule Websocket.Store do
     do: [
       record_name: __MODULE__,
       attributes: notification() |> notification() |> Keyword.keys(),
-      index: [:topic_id],
+      index: [:notification_time],
       ram_copies: [node()]
     ]
 end
