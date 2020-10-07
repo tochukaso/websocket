@@ -7,8 +7,7 @@ defmodule WebsocketWeb.RoomChannel do
   @notification :notification
 
   def join("room:lobby" <> group_id, _message, socket) do
-    IO.inspect(group_id, label: "group_id")
-    # send(self(), :after_join)
+    send(self(), :after_join)
     {:ok, socket}
   end
 
@@ -17,10 +16,30 @@ defmodule WebsocketWeb.RoomChannel do
   end
 
   def handle_info(:after_join, socket) do
-    Logger.info("called :after_join")
     Presence.track_user_join(socket, extract_user(socket))
-    push(socket, "presence_state", Presence.list(socket))
+
+    extracted =
+       socket
+    |> Presence.list()
+    |> extract_map()
+    Logger.info(
+      "joined user count: #{extracted |> length()}"
+    )
+
     {:noreply, socket}
+  end
+
+  defp extract_map(map) when map == %{} do
+    []
+  end
+
+  defp extract_map(map) do
+
+    map
+    |> Map.keys()
+    |> Enum.reduce([], fn key, acc ->
+      acc ++ map[key].metas
+    end)
   end
 
   defp extract_user(socket) do
