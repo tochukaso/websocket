@@ -7,17 +7,15 @@ defmodule Websocket.Application do
   @notification :notification
 
   def start(_type, _args) do
-    prepare_mnesia()
-    topology = Application.get_env(:libcluster, :topologies)
+    #prepare_mnesia()
+    #topology = Application.get_env(:libcluster, :topologies)
 
-    IO.inspect(topology, label: "topology")
 
-    hosts = topology[:websocket][:config][:hosts]
+    #hosts = topology[:websocket][:config][:hosts]
 
-    IO.inspect(hosts, label: "hosts")
-    children = [
-      {Cluster.Supervisor,
-       [topology, [name: Websocket.ClusterSupervisor]]},
+    #children = [
+    #  {Cluster.Supervisor,
+    #   [topology, [name: Websocket.ClusterSupervisor]]},
       # {Mnesiac.Supervisor, [hosts, [name: Websocket.MnesiacSupervisor]]},
       # Start the Telemetry supervisor
       WebsocketWeb.Telemetry,
@@ -45,14 +43,18 @@ defmodule Websocket.Application do
   end
 
   defp prepare_mnesia do
-    master_node = System.get_env("MASTER_NODE")
+    master_node = config(:master_node)
     IO.inspect(master_node, label: "master_node")
 
-    if master_node == nil do
+    if master_node == Node.self() do
       Websocket.Mnesia.init_master()
     else
       String.to_atom(master_node)
       |> Websocket.Mnesia.add_self_to_cluster()
     end
   end
+
+      defp config(atom) do
+        Application.fetch_env!(:websocket, :controller)[atom]
+      end
 end
