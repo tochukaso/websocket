@@ -13,7 +13,7 @@ defmodule Websocket.Application do
 
     #hosts = topology[:websocket][:config][:hosts]
 
-    #children = [
+    children = [
     #  {Cluster.Supervisor,
     #   [topology, [name: Websocket.ClusterSupervisor]]},
       # {Mnesiac.Supervisor, [hosts, [name: Websocket.MnesiacSupervisor]]},
