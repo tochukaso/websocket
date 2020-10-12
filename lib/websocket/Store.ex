@@ -30,6 +30,6 @@ defmodule Websocket.Store do
     do: [
       record_name: :notification,
       attributes: notification() |> notification() |> Keyword.keys(),
-      ram_copies: [node()]
+      disc_copies: [node()]
     ]
 end
