@@ -6,7 +6,6 @@ defmodule Websocket.Application do
   use Application
 
   def start(_type, _args) do
-    #prepare_mnesia()
     topology = Application.get_env(:libcluster, :topologies)
 
 
