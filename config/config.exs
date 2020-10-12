@@ -41,9 +41,6 @@ config :ex_aws,
   ],
   region: System.get_env("AWS_REGION")
 
-config :mnesia,
-  dir: 'priv/data/mnesia'
-
 config :mnesiac,
   stores: [Websocket.Store]
 # Import environment specific config. This must remain at the bottom
