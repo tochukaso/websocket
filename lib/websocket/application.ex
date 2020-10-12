@@ -4,19 +4,18 @@ defmodule Websocket.Application do
   @moduledoc false
 
   use Application
-  @notification :notification
 
   def start(_type, _args) do
     #prepare_mnesia()
-    #topology = Application.get_env(:libcluster, :topologies)
+    topology = Application.get_env(:libcluster, :topologies)
 
 
-    #hosts = topology[:websocket][:config][:hosts]
+    hosts = topology[:websocket][:config][:hosts]
 
     children = [
-    #  {Cluster.Supervisor,
-    #   [topology, [name: Websocket.ClusterSupervisor]]},
-      # {Mnesiac.Supervisor, [hosts, [name: Websocket.MnesiacSupervisor]]},
+      {Cluster.Supervisor,
+      [topology, [name: Websocket.ClusterSupervisor]]},
+      {Mnesiac.Supervisor, [hosts, [name: Websocket.MnesiacSupervisor]]},
       # Start the Telemetry supervisor
       WebsocketWeb.Telemetry,
       # Start the PubSub system

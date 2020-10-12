@@ -12,8 +12,7 @@ defmodule Websocket.Store do
     :notification,
     __MODULE__,
     user_id: nil,
-    notification_time: nil,
-    event: nil
+    notification_time: nil
   )
 
   @typedoc """
@@ -23,14 +22,13 @@ defmodule Websocket.Store do
           record(
             :notification,
             user_id: String.t(),
-            notification_time: String.t(),
-            event: String.t()
+            notification_time: String.t()
           )
 
   @impl true
   def store_options,
     do: [
-      record_name: __MODULE__,
+      record_name: :notification,
       attributes: notification() |> notification() |> Keyword.keys(),
       index: [:notification_time],
       ram_copies: [node()]

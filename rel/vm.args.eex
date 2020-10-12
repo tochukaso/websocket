@@ -10,6 +10,4 @@
 ## Tweak GC to run more often
 ##-env ERL_FULLSWEEP_AFTER 10
 
-#-config /home/ec2-user/websocket/config/master.config
-#-kernel inet_dist_listen_min 9100 inet_dist_listen_max 9155
--kernel sync_nodes_timeout 30000
+-kernel inet_dist_listen_min 9100 inet_dist_listen_max 9155
