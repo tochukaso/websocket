@@ -31,6 +31,6 @@ defmodule Websocket.Store do
       record_name: :notification,
       attributes: notification() |> notification() |> Keyword.keys(),
       index: [:notification_time],
-      ram_copies: [node()]
+      disc_copies: [node()]
     ]
 end
