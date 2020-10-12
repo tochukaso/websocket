@@ -29,7 +29,6 @@ defmodule Websocket.Store do
   def store_options,
     do: [
       record_name: :notification,
-      attributes: notification() |> notification() |> Keyword.keys(),
-      disc_copies: [node()]
+      attributes: notification() |> notification() |> Keyword.keys()
     ]
 end
