@@ -8,7 +8,7 @@ defmodule Websocket.Store do
   @doc """
   Record definition for ExampleStore notification record.
   """
-  Record.defrecord(
+  defrecord(
     :notification,
     __MODULE__,
     user_id: nil,
@@ -30,7 +30,6 @@ defmodule Websocket.Store do
     do: [
       record_name: :notification,
       attributes: notification() |> notification() |> Keyword.keys(),
-      index: [:notification_time],
       ram_copies: [node()]
     ]
 end
