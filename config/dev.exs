@@ -76,7 +76,7 @@ config :libcluster,
       # Configuration for the provided strategy. Optional.
       config: [
         hosts: [
-          :"websocket@ip-172-31-36-104.ap-northeast-1.compute.internal",
+          :"websocket@ip-172-31-39-45.ap-northeast-1.compute.internal",
           :"websocket@ip-172-31-0-154.ap-northeast-1.compute.internal"
         ]
       ],
